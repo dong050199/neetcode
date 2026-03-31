@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+func goodNodes(root *TreeNode) int {
+	return dfs(root, - 101)
+    
+}
+
+func dfs(root *TreeNode, maxVal int) int {
+	if root == nil {
+		return 0
+	}
+
+	res := 0
+
+	if root.Val >= maxVal {
+		res++
+	}
+
+	maxVal = max(maxVal, root.Val)
+
+	res += dfs(root.Left, maxVal)
+	res += dfs(root.Right, maxVal)
+
+	return res
+}
