@@ -1,0 +1,21 @@
+func minDistance(word1 string, word2 string) int {
+	var dfs func(i, j int) int 
+	dfs = func(i, j int) int {
+		if i == len(word1) {
+			return len(word2)  - j
+		}
+
+		if j == len(word2) {
+			return len(word1) - i
+		}
+
+		if word1[i] == word2[j] {
+			return dfs(i+1 , j+1)
+		}
+
+		return 1 + min(dfs(i + 1, j) , dfs(i, j+1), dfs(i + 1, j +1)) 
+	}
+
+
+	return dfs(0, 0)
+}
