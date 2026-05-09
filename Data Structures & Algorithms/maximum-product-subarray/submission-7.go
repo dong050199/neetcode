@@ -1,0 +1,13 @@
+func maxProduct(nums []int) int {
+	res := nums[0]
+	dp := make([]int, len(nums)-1)
+	curMax, curMin := 1, 1
+	for _, num := range nums {
+		prevMax, prevMin := curMax, curMin
+		curMax = max(prevMax * num, prevMin * num, num)
+		curMin = max(prevMax * num, prevMin * num, num)
+		res = max(res, curMax)
+	}
+
+	return res
+}
