@@ -1,0 +1,39 @@
+func minEatingSpeed(piles []int, h int) int {
+	// we need define the space of eating rate
+	// min/max -> return minimum k 
+	// eating rate is 1 to max of piles
+	l, r := 1, maxOf(piles)
+	for l <= r {
+		mid := l + (r - l)/2
+		time := 0
+		for _, pile := range piles {
+			if pile <= mid {
+				time++
+			} else {
+				if pile % mid == 0 {
+					time += pile/mid
+				} else {
+					time += pile/mid + 1
+				}
+			} 
+		}
+
+		if time > h {
+			l = mid + 1
+		} else {
+			r = mid - 1
+		}
+	}
+
+	return l
+}
+
+func maxOf(piles []int) int {
+	maxPile := piles[0]
+
+	for _, pile := range piles {
+		maxPile = max(maxPile, pile)
+	}
+
+	return maxPile
+}
